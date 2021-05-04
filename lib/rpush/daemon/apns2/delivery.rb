@@ -107,14 +107,7 @@ module Rpush
         end
 
         def prepare_headers(notification)
-          headers = {}
-
-          headers['apns-expiration'] = '0'
-          headers['apns-priority'] = '10'
-          headers['apns-topic'] = @app.bundle_id
-          headers['apns-push-type'] = 'background' if notification.content_available?
-
-          headers.merge notification_data(notification)[HTTP2_HEADERS_KEY] || {}
+          notification_data(notification)[HTTP2_HEADERS_KEY] || {}
         end
 
         def notification_data(notification)
